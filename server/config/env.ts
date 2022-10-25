@@ -11,7 +11,7 @@ const envSchema = object({
 
 let validated: InferType<typeof envSchema>;
 try {
-  validated = envSchema.validateSync(process);
+  validated = envSchema.validateSync(process.env);
 } catch (e) {
   console.error(e);
 }

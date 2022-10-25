@@ -6,7 +6,8 @@ import env from "./config/env";
 
 export const app = express();
 app.use(pinoHttp(loggerMiddleware));
-app.use(router);
+app.use(express.json());
+app.use("/api", router);
 
 app.use((err, req, res, _) => {
   logger.error(err);
