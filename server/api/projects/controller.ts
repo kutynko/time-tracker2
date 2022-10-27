@@ -13,7 +13,7 @@ export async function getProjects(
   next: NextFunction
 ) {
   try {
-    const userId = 1;
+    const userId = req.user.id;
     const result = await getUserProjects(userId);
     res.send(result);
   } catch (e) {

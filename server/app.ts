@@ -3,6 +3,7 @@ import { pinoHttp } from "pino-http";
 import { logger, loggerMiddleware } from "./logger";
 import { router } from "./api/routes";
 import env from "./config/env";
+import "./authentication";
 
 export const app = express();
 app.use(pinoHttp(loggerMiddleware));
