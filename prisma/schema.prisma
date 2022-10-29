@@ -17,6 +17,7 @@ model Project {
     id          Int     @id @default(autoincrement())
     title       String
     assignments ProjectAssignment[]
+    deleted     Boolean @default(false)
 }
 
 model ProjectAssignment {
