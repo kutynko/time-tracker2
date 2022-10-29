@@ -46,9 +46,8 @@ export async function getProject(
   next: NextFunction
 ) {
   const id = parseInt(req.params.id);
-  const userId = req.user.id;
   try {
-    const result = await getProjectById(id, userId);
+    const result = await getProjectById(id);
     res.send(result);
   } catch (e) {
     next(e);
@@ -65,9 +64,8 @@ export async function putProject(
 ) {
   const id = parseInt(req.params.id);
   const { title } = req.body;
-  const userId = req.user.id;
   try {
-    const result = await updateProject(id, title, userId);
+    const result = await updateProject(id, title);
     res.send(result);
   } catch (e) {
     next(e);
@@ -80,9 +78,8 @@ export async function deleteProject(
   next: NextFunction
 ) {
   const id = parseInt(req.params.id);
-  const userId = req.user.id;
   try {
-    await removeProject(id, userId);
+    await removeProject(id);
     res.status(204).end();
   } catch (e) {
     next(e);
