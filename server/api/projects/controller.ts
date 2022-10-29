@@ -6,6 +6,7 @@ import {
   removeProject,
   updateProject,
 } from "../../services/projects.service";
+import { object, string } from "yup";
 
 export async function getProjects(
   req: Request,
@@ -21,6 +22,9 @@ export async function getProjects(
   }
 }
 
+export const postProjectBodySchema = object({
+  title: string().required(),
+});
 export async function postProject(
   req: Request,
   res: Response,
@@ -51,6 +55,9 @@ export async function getProject(
   }
 }
 
+export const putProjectBodySchema = object({
+  title: string().required(),
+});
 export async function putProject(
   req: Request,
   res: Response,
