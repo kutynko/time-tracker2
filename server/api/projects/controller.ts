@@ -7,6 +7,7 @@ import {
   updateProject,
 } from "../../services/projects.service";
 import { object, string } from "yup";
+import { getListQueryParams } from "../../utils/http";
 
 export async function getProjects(
   req: Request,
@@ -15,7 +16,8 @@ export async function getProjects(
 ) {
   try {
     const userId = req.user.id;
-    const result = await getUserProjects(userId);
+    const listParams = getListQueryParams(req);
+    const result = await getUserProjects(userId, listParams);
     res.send(result);
   } catch (e) {
     next(e);

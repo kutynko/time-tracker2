@@ -1,10 +1,24 @@
+import { Project } from "@prisma/client";
 import { db } from "../database";
+import { EntityListResult } from "../utils/http";
 
-export function getUserProjects(userId: number) {
-  return db.project.findMany({
-    where: { assignments: { every: { userId } }, deleted: false },
-    include: { assignments: true },
-  });
+export async function getUserProjects(
+  userId: number,
+  listOptions
+): Promise<EntityListResult<Project>> {
+  const [list, total] = await Promise.all([
+    db.project.findMany({
+      skip: listOptions.index,
+      take: listOptions.take,
+      orderBy: listOptions.sort,
+      where: { assignments: { every: { userId } }, deleted: false },
+      include: { assignments: true },
+    }),
+    db.project.count({
+      where: { deleted: false, assignments: { every: { userId } } },
+    }),
+  ]);
+  return { list, total };
 }
 
 export function getProjectById(projectId: number) {
