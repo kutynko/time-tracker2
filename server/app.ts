@@ -6,9 +6,15 @@ import env from "./config/env";
 import "./authentication";
 
 export const app = express();
+app.disable("x-powered-by");
+app.disable("etag");
 app.use(pinoHttp(loggerMiddleware));
 app.use(express.json());
 app.use("/api", router);
+
+app.use("*", (_, res) => {
+  res.status(404).end();
+});
 
 app.use((err, req, res, _) => {
   logger.error(err);
