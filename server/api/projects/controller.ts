@@ -36,7 +36,10 @@ export async function postProject(
   const userId = req.user.id;
   try {
     const result = await createNewProject(title, userId);
-    res.status(201).send(result);
+    res
+      .status(201)
+      .setHeader("Location", "/api/projects/" + result.id)
+      .send(result);
   } catch (e) {
     next(e);
   }

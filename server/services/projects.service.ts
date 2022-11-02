@@ -39,19 +39,9 @@ export function createNewProject(title: string, userId: number) {
 }
 
 export async function updateProject(id: number, title: string) {
-  const project = await db.project.findFirst({
-    where: { id, deleted: false },
-  });
-  if (project) {
-    return db.project.update({ data: { title }, where: { id } });
-  }
+  return db.project.update({ data: { title }, where: { id } });
 }
 
 export async function removeProject(id: number) {
-  const project = await db.project.findFirst({
-    where: { id, deleted: false },
-  });
-  if (project) {
-    return db.project.update({ data: { deleted: true }, where: { id } });
-  }
+  return db.project.update({ data: { deleted: true }, where: { id } });
 }
