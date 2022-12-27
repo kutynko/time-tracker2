@@ -7,13 +7,16 @@ import {
   updateProject,
 } from "../../services/projects.service";
 import { object, string } from "yup";
-import { getListQueryParams } from "../../utils/http";
+import { EntityListResult, getListQueryParams } from "../../utils/http";
+import * as core from "express-serve-static-core";
+import { Project } from "@prisma/client";
 
 export async function getProjects(
-  req: Request,
+  req: Request<core.ParamsDictionary, EntityListResult<Project> | {message:string}, never, {index:string,take:string,sort:string}>,
   res: Response,
   next: NextFunction
 ) {
+  req
   try {
     const userId = req.user.id;
     const listParams = getListQueryParams(req);

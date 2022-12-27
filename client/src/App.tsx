@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Navigate, Route, Routes } from "react-router";
+import { ProjectsListPage } from "./features/projects/ProjectsListPage";
+import { FullWidthLayout } from "./layouts/FullWidthLayout";
 
 function App() {
-  const [text, setText] = useState("");
-  useEffect(() => {
-    axios
-      .get("/api/")
-      .then((response) => setText(response.data))
-      .catch(() => setText("error"));
-  }, []);
-  return <div className="App">{text}</div>;
+  return (
+    <Routes>
+      <Route
+        path="/projects"
+        element={
+          <FullWidthLayout>
+            <ProjectsListPage />
+          </FullWidthLayout>
+        }
+      />
+      <Route path="*" element={<Navigate to="/projects" />} />
+    </Routes>
+  );
 }
 
 export default App;
